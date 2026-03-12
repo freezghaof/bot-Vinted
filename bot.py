@@ -1,5 +1,6 @@
 import time
 import requests
+import json
 import os
 from dotenv import load_dotenv
 
@@ -8,7 +9,14 @@ load_dotenv()
 TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
-seen = set()
+SEEN_FILE = "seen_items.json"
+
+# charger les items déjà vus
+if os.path.exists(SEEN_FILE):
+    with open(SEEN_FILE, "r") as f:
+        seen = set(json.load(f))
+else:
+    seen = set()
 BOT_ACTIVE = True  # par défaut le bot tourne
 
 API_URL = "https://www.vinted.fr/api/v2/catalog/items"
