@@ -125,6 +125,10 @@ def scan_vinted():
             continue
         seen.add(item_id)
 
+# sauvegarder dans le fichier JSON
+        with open(SEEN_FILE, "w") as f:
+            json.dump(list(seen), f)
+
         title = item["title"]
         price = int(float(item["price"]["amount"]))  # arrondi
         image = item["photo"]["url"]
